@@ -1,4 +1,4 @@
-# jschol-aws-infra
+# pub-cattle-ops-aws-infra
 
 A work in progress, a collection of Ansible configurations for standing up a "cattle" deployment server in AWS.
 
