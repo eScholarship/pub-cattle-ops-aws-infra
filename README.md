@@ -1,32 +1,8 @@
 # jschol-aws-infra
 
-A work in progress, a collection of Terraform and Ansible configurations for standing up Jschol in AWS.
+A work in progress, a collection of Ansible configurations for standing up a "cattle" deployment server in AWS.
 
 Here are our rough notes so far:
-
-## Terraform stuff
-
-You need an `.aws/credentials` file, and also the same information exported as ENV variables. You get the credentials from your AWS SSO login, click on AWS Account, CDL Sandbox, Command line or programatic access, and copy/paste credentials to `~/.aws/credentials` AND to your bash config files (I have a `~/.creds.env` file I source from `~/.bashrc` with the following:
-
-`if [[ -r "${HOME}/.creds.env" ]]; then
-     source "${HOME}/.creds.env"
-fi`
-
-AWS CLI works with the .aws/credentials file, as do a few other tools, but Ansible and Terraform both seem to prefer the environment variables.
-
-> :warning: You'll need to repeat those credential-copying steps every day you work with these scripts. They are time-limited and will only last a day.
-
-> :warning: Be sure to never commit anything like a `.creds.env` file to any GitHub repository, or hilarity will ensue.
-
-To run the terraform plan file, in the dspace-aws-testing/terraform folder, run:
-
-`terraform apply`
-
-You can tear it all down with:
-
-`terraform destroy`
-
-
 
 ## Ansible stuff
 
@@ -45,29 +21,30 @@ To read up on the amazon.aws.aws_ec2 plugin:
 
 `pip install ansible boto boto3 botocore`
 
-To confirm things are working, run this command from the dspace-aws-testing/ansible folder:
+To confirm things are working, run this command from the pub-cattle-ops-aws-infra/ansible folder:
 
-`ansible-inventory -i pub-ds-aws_ec2.yml --graph`
+`ansible-inventory -i pub-cattle-ops-aws_ec2.yml --graph`
 
-output will look like this, if you've run the terraform plan file:
+output will look something like this:
 
 ```
 @all:
   |--@arch_x86_64:
-  |  |--pub-ds-api
-  |  |--pub-ds-client
+  |  |--eb-pub-jschol-prd
+  |  |--pub-cattle-ops
+  |  |--pub-cattle2-ops
   |--@aws_ec2:
-  |  |--pub-ds-api
-  |  |--pub-ds-client
+  |  |--eb-pub-jschol-prd
+  |  |--pub-cattle-ops
+  |  |--pub-cattle2-ops
   |--@instance_type_t3_medium:
-  |  |--pub-ds-api
-  |--@instance_type_t3_micro:
-  |  |--pub-ds-client
-  |--@project_dspace:
-  |  |--pub-ds-api
-  |  |--pub-ds-client
+  |  |--eb-pub-jschol-prd
+  |--@instance_type_t3_small:
+  |  |--pub-cattle-ops
+  |  |--pub-cattle2-ops
   |--@ungrouped:
 ```
+
 ## License
 
 [MIT](LICENSE)
