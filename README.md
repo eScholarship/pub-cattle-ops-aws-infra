@@ -45,6 +45,13 @@ output will look something like this:
   |--@ungrouped:
 ```
 
+### Installing Required Ansible Roles
+
+The included playbook requires a role from Ansible Galaxy, you can install it with the following command:
+
+`ansible-galaxy install -r requirements.yml`
+
+
 ## License
 
 [MIT](LICENSE)
