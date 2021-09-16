@@ -1,6 +1,6 @@
 ---
 
-- name: create a service user (default is eschol)
+- name: create a service user (default is ec2-user)
   user:
     name: '{{ service_user_name }}'
     password: '{{ service_user_password }}'

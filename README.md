@@ -1,6 +1,6 @@
-# dspace-aws-infra
+# jschol-aws-infra
 
-A work in progress, a collection of Terraform and Ansible configurations for standing up DSpace7 in AWS.
+A work in progress, a collection of Terraform and Ansible configurations for standing up Jschol in AWS.
 
 Here are our rough notes so far:
 

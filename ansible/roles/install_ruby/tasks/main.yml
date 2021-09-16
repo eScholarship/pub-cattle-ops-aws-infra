@@ -1,0 +1,17 @@
+---
+
+# - name: Enable ruby2.6 via Amazon Linux Extras
+#   command: amazon-linux-extras enable ruby2.6
+#   become: yes
+
+- name: Install Ruby and gems
+  yum:
+    name:
+      - ruby
+      - rubygems
+      - rubygem-bundler
+    state: present
+    update_cache: true
+
+### NOTE: the rubygem-bundler installation mysteriousely fails, as does the amazon-linux-extras
+### WORKAROUND: run these commands manually, they work fine in a shell

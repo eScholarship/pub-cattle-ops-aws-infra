@@ -1,0 +1,39 @@
+---
+
+- name: install packages and roles for the PUB-CATTLE2-OPS deployment server
+  hosts: pub-cattle2-ops
+  become: yes
+  become_user: root
+
+  vars:
+    nvm_node_version: "10.24.1"
+    nvm_install_globally:
+      - name: yarn
+    code_git_repo: https://github.com/eScholarship/jschol.git
+    code_source_dir: /home/ec2-user/jschol
+    code_git_branch: master
+    code_service_user: ec2-user
+
+  pre_tasks:
+    - name: latest version of all required packages installed
+      yum:
+        name:
+          - git
+          - gcc
+          - gcc-c++
+          - system-rpm-config.noarch
+          - mysql-devel
+          - sqlite-devel
+
+        state: latest
+
+  roles:
+    - role: grzegorznowak.nvm_node
+    # - role: install_ruby
+    - role: set_up_code
+
+  # post_tasks:
+  #  - name: jschol setup
+  #    shell:
+  #      cmd: /home/ec2-user/jschol/setup.sh
+  #      chdir: /home/ec2-user/jschol
